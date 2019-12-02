@@ -1,9 +1,166 @@
-baseurl = "/"
-languageCode = "en-us"
-languageLang = "en"
-title = "Homepage"
+baseurl = "https://blog.7tv.me/"
+hasCJKLanguage = true
+languageCode = "zh-tw"
+title = "Alex努力前行"
+theme = "hugo-future-imperfect"
+preserveTaxonomyNames = true
+paginate = 3
+disqusShortname = "8tv-1"
+googleAnalytics = ""
+pluralizeListTitles = false
 
-# RSS, categories and tags disabled for an easy start
-# See configuration options for more details: 
-# https://gohugo.io/getting-started/configuration/#toml-configuration
-disableKinds = ["RSS", "taxonomy", "taxonomyTerm"]
+[params]
+  # Sets the meta tag description
+  description          = "Python, golang, c++, android, p2p, stream server, and all by day"
+  # Sets the navbarTitle that appears in the top left of the navigation bar
+  navbarTitle          = "Alex努力前行"
+  # Sets where "View More Posts" links
+  viewMorePostLink     = "/blog/"
+
+# Optional Params
+  # Sets navbarTitle to match the section of the website
+  dynamicTitles        = true
+  # Sets RSS icons to appear on the sidebar with the social media buttons
+  rssAppearAtTop       = true
+  rssAppearAtBottom    = true
+  # Sets Social Media icons to appear on the sidebar
+  socialAppearAtTop    = true
+  socialAppearAtBottom = true
+  # Sets Categories to sort by number of posts instead of alphabetical
+  categoriesByCount    = true
+  # Sets Estimated Reading Time to appear in post headers
+  includeReadingTime   = true
+  # Sets the Favicon and Version for the site. Default support is for
+  # apple-touch-icon-precomposed.png, favicon.png, favicon.ico, and mstile.png.
+  # These are stored in the favicon folder. See the following for more information:
+  # https://github.com/audreyr/favicon-cheat-sheet
+  loadFavicon          = false
+  faviconVersion       = ""
+  # Sets Social Share links to appear on posts
+  socialShare          = true
+  # Load custom CSS or JavaScript files. The variable is an array so that you
+  # can load multiple files if necessary. You can also load the standard theme
+  # files by adding the value, "default".
+  # customCSS            = ["default", "/path/to/file"]
+  # customJS             = ["default", "/path/to/file"]
+  customCSS            = ["default"]
+  customJS             = ["default"]
+
+# Disqus will take priority over Staticman (github.com/eduardoboucas/staticman)
+# due to its ease of use. Feel free to check out both and decide what you would
+# prefer to use. See Staticman.yml for additional settings.
+[params.staticman]
+  # Sets Statiman to be active
+  staticman = false
+  # Sets the location for Staticman to connect to
+  username  = ""
+  repo      = ""
+  branch    = ""
+
+  # These are optional params related to the sidebar. They are recommended, but not
+  # required for proper functionality. HTML is supported within the params.
+[params.intro]
+  header    = "I was climbing"
+
+  paragraph = "記錄前行中的點點滴滴, 一爲自己一爲家人, 未來並不完美, 但我相信未來會更好 <i class='fa fa-hand-peace-o'></i>"
+
+  about     = "混跡於互聯網與新媒體大潮中15年, 做過CODER也就練就十八般武藝, 做過高管也就管管幾百人, 做過老板也就搞過小有名氣的小公司, 做過SOHU也就開發過上千萬用戶的APP..但至今仍算得上事業無成, 仍舊繼續混跡與網路中,爲生活爲明天努力"
+
+  # This appears at the top of the sidebar above params.intro.header.
+  # A width of less than 100px is recommended from a design perspective.
+  [params.intro.pic]
+    src       = "/img/main/logo.jpg"
+    # Sets Image to be a cirlce
+    circle    = false
+    # Sets Image to be Future Imperfect's hexagon
+    imperfect = true
+    width     = ""
+    alt       = "Alex努力前行"
+
+[params.postAmount]
+# Sets the number of recent posts to show in the sidebar. The default value is 5.
+    sidebar = 5
+
+# Sets the menu items in the navigation bar
+# Identifier prepends a Font Awesome icon to the menu item
+[[menu.main]]
+  name = "Home"
+  url = "/"
+  identifier = "fa fa-home"
+  weight = 1
+
+[[menu.main]]
+  name = "About"
+  url = "/about/"
+  identifier = "fa fa-id-card-o"
+  weight = 2
+
+[[menu.main]]
+  name = "Blog"
+  url = "/blog/"
+  identifier = "fa fa-newspaper-o"
+  weight = 3
+
+[[menu.main]]
+  name = "Itemized"
+  url = "/itemized/"
+  identifier = "fa fa-list"
+  weight = 4
+
+[[menu.main]]
+  name = "Categories"
+  url = "/categories/"
+  identifier = "fa fa-sitemap"
+  weight = 5
+
+[[menu.main]]
+  name = "Contact"
+  url = "/contact/"
+  identifier = "fa fa-envelope-o"
+  weight = 6
+
+# Sets Social Media icons to appear and link to your account. Value should be your
+# username unless otherwise noted. These are the icons affected by socialAppearAtTop
+# and socialAppearAtBottom.
+[social]
+  # Coding Communities
+  github          = "github.com/alexliyu7352"
+  gitlab          = ""
+  stackoverflow   = "" # User Number
+  bitbucket       = ""
+  jsfiddle        = ""
+  codepen         = ""
+  # Visual Art Communities
+  deviantart      = ""
+  flickr          = ""
+  behance         = ""
+  dribbble        = ""
+  # Publishing Communities
+  wordpress       = ""
+  medium          = ""
+  # Professional/Business Oriented Communities
+  linkedin        = "example"
+  foursquare      = ""
+  xing            = ""
+  slideshare      = ""
+  # Social Networks
+  facebook        = ""
+  googleplus      = ""
+  reddit          = ""
+  quora           = ""
+  youtube         = ""
+  vimeo           = ""
+  whatsapp        = "" # WhatsApp Number
+    # WeChat and QQ need testing.
+    wechat          = ""
+    qq              = "" # User ID Number
+  instagram       = ""
+  tumblr          = ""
+  twitter         = ""
+  skype           = ""
+  snapchat        = ""
+  pinterest       = ""
+  telegram        = ""
+  vine            = ""
+  # Email
+  email           = ""

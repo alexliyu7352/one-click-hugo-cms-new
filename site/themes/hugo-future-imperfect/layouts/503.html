@@ -227,24 +227,25 @@
   <body class="plain error-page-wrapper background-color background-image">
     <div class="content-container">
 	<div class="head-line secondary-text-color">
-		404
+		503
 	</div>
 	<div class="subheader primary-text-color">
-		Oops, the page you're <br>
-		looking for does not exist.
+		Looks like we're having <br>
+		some server issues.
 	</div>
-	<hr>
-	<div class="clearfix"></div>
-	<div class="context primary-text-color">
-		
+    <hr>
+    <div class="clearfix"></div>
+    <div class="context primary-text-color">
+
     <p>
-      You may want to head back to the homepage.<br />
+      Go back to the previous page and try again.
       If you think something is broken, report a problem.
     </p>
-	</div>
+
+
+    </div>
 	<div class="buttons-container">
-		<a class="border-button" href="/">Go To Homepage</a>
-		<a class="border-button" href="mailto:example">Report A Problem</a>
+		<a class="border-button" href="mailto:{{ .Site.Social.email }}">Report A Problem</a>
 	</div>
 </div>
 
@@ -275,14 +276,14 @@
          self.centerContent();
        });
 
-       
+       // fades in content on the plain template
        if (this.templateName == 'plain') {
          window.setTimeout(function () {
            self.$contentContainer.addClass('in');
          }, 500);
        }
 
-       
+       // swings sign in on the sign template
        if (this.templateName == 'sign') {
          $('.sign-container').animate({textIndent : 0}, {
            step : function (now) {
@@ -327,7 +328,7 @@
 
 
      ErrorPage.prototype.fetchStatus = function (pageUrl, pageType) {
-       
+       //console.log('in app.js fetch');
        if (!pageUrl || !pageType || pageType == '404') return;
 
        var url = ''
@@ -344,18 +345,18 @@
          type : "GET",
          url : url,
        }).success(function (data, status) {
-         
+         //console.log('success');
          self.handleStatusFetchSuccess(pageType, data);
        }).fail(function (xhr, msg) {
-         
+         //console.log('fail');
          self.handleStatusFetchFail(pageType);
        });
 
      };
-     var ep = new ErrorPage('body', "404", "plain");
+     var ep = new ErrorPage('body', "503", "plain");
      ep.initialize();
 
-     
+     // hack to make sure content stays centered >_<
      $(window).on('resize', function() {
        $('body').trigger('resize')
      });

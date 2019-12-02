@@ -4,8 +4,9 @@
     {{ partial "navbar" . }}
     <!-- Main -->
     <div id="main">
-        {{ $paginator := .Paginate .Data.Pages }}
-        {{ range .Paginator.Pages }}
+        <h1>{{ .Title }}</h1>
+        {{ $paginator := .Paginate (where .Data.Pages "Type" "post") }}
+        {{ range $paginator.Pages }}
             {{ .Render "content-list" }}
         {{ end }}
 

@@ -1,53 +1,34 @@
-<footer class="bg-black ph3 pv4 white">
+    </div>
+    <a id="back-to-top" href="#" class="fa fa-arrow-up fa-border fa-2x"></a>
+    <!-- Scripts -->
 
-	<div class="mw7 center pt3">
+    {{ if isset .Site.Params "customjs" }}
+      {{ $.Scratch.Set "jsFiles" .Site.Params.customJS }}
+    {{ else }}
+      {{ $.Scratch.Set "jsFiles" false }}
+    {{ end }}
 
-		<div class="measure-narrow center mb4">
+    <!-- If the value "default" is passed into the param then we will first
+     load the standard js files associated with the theme -->
+    {{ if or (in ($.Scratch.Get "jsFiles") "default") (eq ($.Scratch.Get "jsFiles") false) }}
+      <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/skel/3.0.1/skel.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.js"></script>
+      <script src="{{ "js/util.js" | relURL }}"></script>
+      <script src="{{ "js/main.js" | relURL }}"></script>
+      <script src="{{ "js/backToTop.js" | relURL }}"></script>
+    {{ end }}
 
-			<img src="/img/logo.svg" alt="Kaldi logo" class="db w4 center mb4 br0">
-			<p class="f3 lh-title light-gray b tc mb2">Newsletter subscribe</p>
-			<p>Get awesome news from us in your inbox every two weeks. Be the first to learn about new products.</p>
+    {{ if ne ($.Scratch.Get "jsFiles") false }}
+      {{ range $.Scratch.Get "jsFiles" }}
+        {{ if ne . "default" }}
+          <script src="{{ . | relURL }}"></script>
+        {{ end }}
+      {{ end }}
+    {{ end }}
 
-			{{ partial "newsletter-form" . }}
-
-		</div>
-
-		<div class="flex-ns justify-between">
-
-			<div>
-				<h3 class="f4 b lh-title mb1 primary">Kaldi</h3>
-				<ul class="mb3">
-					<li><a href="/" class="link">Home</a></li>
-					<li><a href="/products" class="link">Our products</a></li>
-					<li><a href="/values" class="link">About</a></li>
-					<li><a href="/post" class="link">Blog</a></li>
-					<li><a href="/contact" class="link">Contact</a></li>
-				</ul>
-			</div>
-
-			<div>
-				<h3 class="f4 b lh-title mb1 primary">Find out more</h3>
-				<ul class="mb3">
-					<li><a href="/post/jamaica-blue/" class="link">Latest offers</a></li>
-					<li><a href="/contact" class="link">Schedule and appointment</a></li>
-				</ul>
-			</div>
-
-			<div>
-				<h3 class="f4 b lh-title mb2 primary">Social media</h3>
-				<ul class="mhn2">
-					{{ partial "social-icon" (dict "link" "#" "svg" "icons-facebook") }}
-					{{ partial "social-icon" (dict "link" "#" "svg" "icons-twitter") }}
-					{{ partial "social-icon" (dict "link" "#" "svg" "icons-instagram") }}
-					{{ partial "social-icon" (dict "link" "#" "svg" "icons-vimeo") }}
-				</ul>
-			</div>
-
-		</div>
-	</div>
-
-</footer>
-
-{{ partial "svg" . }}
-
-<script src="/app.js"></script>
+    <!-- This is called by default since this theme uses highlight.js -->
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>

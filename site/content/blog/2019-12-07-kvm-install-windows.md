@@ -37,13 +37,7 @@ louie@ubuntu:~$ sudo apt-get install -y --no-install-recommends qemu-kvm qemu-ut
 
 ```
 louie@ubuntu:~$ kvm-ok
-```
-
-```
 INFO: /dev/kvm exists
-```
-
-```
 KVM acceleration can be used
 ```
 
@@ -53,79 +47,32 @@ KVM安装完成后会自动生成一个virbr0 的桥接网络，但是这个是�
 
 ```
 # The bridged network interface
-```
-
-```
 auto br0
-```
-
-```
 iface br0 inet static
-```
 
-```
-\    address 10.7.3.5
-```
+   address 10.7.3.5
 
-```
-\    netmask 255.255.255.0
-```
-
-```
-\    gateway 10.7.3.1
-```
-
-```
-\    dns-nameservers 223.5.5.5
-```
-
-```
-\    bridge_ports bond0
-```
-
-```
-\    bridge_stop off
-```
-
-```
-\    bridge_fd 0
-```
-
-```
-\    bridge_maxwait 0
-```
-
-```
-\    bridge_stp yes
-```
-
-```
+   netmask 255.255.255.0
+   gateway 10.7.3.1
+   dns-nameservers 223.5.5.5
+   bridge_ports bond0
+   bridge_stop off
+   bridge_fd 0
+   bridge_maxwait 0
+   bridge_stp yes
 iface br0 inet6 static
-```
-
-```
 address 2402:6100::5/64
-```
-
-```
-\    gateway 2402:6100::1
+    gateway 2402:6100::1
 ```
 
 重启网络服务，通过brctl命令查看网桥状态
 
 ```
 root@ubuntu:~# brctl show
-```
-
-```
 bridge name	bridge id		STP enabled	interfaces
-```
 
-```
 br0		8000.d09466445091	yes		bond0
-```
 
-```
 virbr0		8000.5254006a9d3c	yes		virbr0-nic
 ```
 
@@ -159,73 +106,27 @@ windows server镜像(windows server 2008R2)
 
 ```
 louie@ubuntu:~$ virt-install \
-```
-
-```
 --name WASU_AF \
-```
-
-```
 --memory 4096 \
-```
-
-```
 --vcpus sockets=2,cores=2,threads=2 \
-```
-
-```
 --cdrom=/opt/cfiec/6dnskvm/windows_ser_2008.iso \
-```
-
-```
 --os-type=windows \
-```
-
-```
 --os-variant=auto \
-```
-
-```
 --disk /opt/cfiec/6dnskvm/WASU_AF.qcow2,bus=virtio,size=50 \
-```
-
-```
 --disk /opt/cfiec/6dnskvm/virtio-win-0.1.126_amd64.vfd,device=floppy \
-```
-
-```
 --network bridge=br0,model=virtio \
-```
-
-```
 --graphics vnc,password=v6dns,listen=::,port=5910 \
-```
-
-```
 --hvm \
-```
-
-```
 --virt-type kvm
-```
 
-```
 WARNING  Graphics requested but DISPLAY is not set. Not running virt-viewer.
-```
 
-```
 WARNING  No console to launch for the guest, defaulting to --wait -1
-```
 
-```
 Starting install...
-```
 
-```
 Creating domain...                                                                                                                                    |    0 B  00:00:01
-```
 
-```
 Domain installation still in progress. Waiting for installation to complete.
 ```
 
@@ -269,49 +170,27 @@ windows server 2008 安装6
 
 ```
 louie@ubuntu:~$ virsh list
-```
 
-```
  Id    Name                           State
-```
 
-```
 ----------------------------------------------------
-```
 
-```
  3     DELL_STORAGE                running
-```
 
-```
 关机
-```
 
-```
 sudo virsh shutdown DELL_STORAGE
-```
 
-```
 开机
-```
 
-```
 sudo virsh start DELL_STORAGE
-```
 
-```
 暂停（挂起）
-```
 
-```
 sudo virsh suspend DELL_STORAGE
-```
 
-```
 删除
-```
 
-```
 sudo virsh destroy DELL_STORAGE
 ```
 
@@ -321,35 +200,28 @@ sudo virsh destroy DELL_STORAGE
 
 ```
 louie@ubuntu:~$ sudo virsh shutdown DELL_STORAGE
-```
 
-```
 louie@ubuntu:~$ sudo virsh edit DELL_STORAGE
-```
 
-```
 [sudo] password for louie:
-```
 
-```
 Select an editor.  To change later, run 'select-editor'.
-```
 
-1. ```
+1. 
    /bin/ed
-   ```
-2. ```
+
+2. 
    /bin/nano        <---- easiest
-   ```
-3. ```
+   
+3. 
    /usr/bin/vim.basic
-   ```
-4. ```
+ 
+4. 
    /usr/bin/vim.tiny
-   ```
 
 
-```
+
+
 Choose 1-4 [2]: 3
 ```
 
@@ -385,361 +257,112 @@ Choose 1-4 [2]: 3
 
 ```
 <domain type='kvm'>   //虚拟机类型，如果是Xen，则type=‘xen’
-```
 
-```
   <name>DELL_STORAGE  </name> //虚拟机名称，同一物理机唯一
-```
 
-```
   <uuid>d29c0f61-8501-420a-a006-d82a00fe7eb4</uuid> //同一物理机唯一，可用uuidgen生成
-```
 
-```
   <memory unit='KiB'>4194304</memory> //虚拟机内存
-```
 
-```
   <currentMemory unit='KiB'>4194304</currentMemory>
-```
 
-```
   <vcpu placement='static'>4</vcpu> // 虚拟机vCPU个数
-```
 
-```
   <os>
-```
 
-```
-\    <type arch='x86_64' machine='pc-i440fx-xenial'>hvm</type> //arch指出系统架构类型，machine 则是机器类型，查看机器类型：qemu-system-x86_64 -M ?
-```
-
-```
-\    <boot dev='hd'/> // 启动介质，这里是安装好的系统因此选择hd，
-```
-
-```
+    <type arch='x86_64' machine='pc-i440fx-xenial'>hvm</type> //arch指出系统架构类型，machine 则是机器类型，查看机器类型：qemu-system-x86_64 -M ?
+    <boot dev='hd'/> // 启动介质，这里是安装好的系统因此选择hd，
   </os>
-```
 
-```
   <features>
-```
+   <acpi/>
+   <apic/>
+    <hyperv>
+    <relaxed state='on'/>
+    <vapic state='on'/>
+    <spinlocks state='on' retries='8191'/>
+    </hyperv>
 
-```
-\    <acpi/>
-```
-
-```
-\    <apic/>
-```
-
-```
-\    <hyperv>
-```
-
-```
-\    <relaxed state='on'/>
-```
-
-```
-\    <vapic state='on'/>
-```
-
-```
-\    <spinlocks state='on' retries='8191'/>
-```
-
-```
-\    </hyperv>
-```
-
-```
   </features>
-```
 
-```
-  <cpu>
-```
+   <topology sockets='1' cores='2' threads='2'/> //vCPU 逻辑核心
 
-```
-\    <topology sockets='1' cores='2' threads='2'/> //vCPU 逻辑核心
-```
-
-```
   </cpu>
-```
 
-```
   <clock offset='localtime'>   //虚拟机时钟
-```
+  <timer name='rtc' tickpolicy='catchup'/>
+   <timer name='pit' tickpolicy='delay'/>
+    <timer name='hpet' present='no'/>
+    <timer name='hypervclock' present='yes'/>
 
-```
-\    <timer name='rtc' tickpolicy='catchup'/>
-```
-
-```
-\    <timer name='pit' tickpolicy='delay'/>
-```
-
-```
-\    <timer name='hpet' present='no'/>
-```
-
-```
-\    <timer name='hypervclock' present='yes'/>
-```
-
-```
   </clock>
-```
 
-```
   <on_poweroff>destroy</on_poweroff>
-```
 
-```
   <on_reboot>restart</on_reboot>
-```
 
-```
   <on_crash>restart</on_crash>
-```
 
-```
   <pm>
-```
+   <suspend-to-mem enabled='no'/>
+   <suspend-to-disk enabled='no'/>
 
-```
-\    <suspend-to-mem enabled='no'/>
-```
-
-```
-\    <suspend-to-disk enabled='no'/>
-```
-
-```
   </pm>
-```
 
-```
-  <devices>
-```
+    <emulator>/usr/bin/kvm-spice</emulator>
+    <disk type='file' device='disk'>   //虚拟机虚拟磁盘
+    <driver name='qemu' type='qcow2'/>
+    <source file='/opt/cfiec/6dnskvm/DELL_STORAGE  .qcow2'/>
+   <target dev='vda' bus='virtio'/>
+    <address type='pci' domain='0x0000' bus='0x00' slot='0x04' function='0x0'/>
+    </disk>
+    <controller type='usb' index='0' model='ich9-ehci1'>
+   <address type='pci' domain='0x0000' bus='0x00' slot='0x05' function='0x7'/>
+    </controller>
+    <controller type='usb' index='0' model='ich9-uhci1'>
+   <master startport='0'/>
+    <address type='pci' domain='0x0000' bus='0x00' slot='0x05' function='0x0' multifunction='on'/>
+    </controller>
+    <master startport='2'/>
+    <address type='pci' domain='0x0000' bus='0x00' slot='0x05' function='0x1'/>
+    </controller>
+   <controller type='usb' index='0' model='ich9-uhci3'>
+    <master startport='4'/>
+    <address type='pci' domain='0x0000' bus='0x00' slot='0x05' function='0x2'/>
+    </controller>
+    <controller type='pci' index='0' model='pci-root'/>
+    <controller type='fdc' index='0'/>
+    <controller type='ide' index='0'>
+    <address type='pci' domain='0x0000' bus='0x00' slot='0x01' function='0x1'/>
+   </controller>
+    <interface type='bridge'>   // 网卡类型，桥接
+    <mac address='52:54:00:90:34:70'/>
+    <source bridge='br0'/> //桥接网桥名称
+    <model type='virtio'/>    // 网卡驱动类型
+    <address type='pci' domain='0x0000' bus='0x00' slot='0x03' function='0x0'/>
+    </interface>
+    <serial type='pty'>
+    <target port='0'/>
+    </serial>
+    <console type='pty'>
+    <target type='serial' port='0'/>
+   </console>
+    <input type='tablet' bus='usb'/>
+    <input type='mouse' bus='ps2'/>
+    <input type='keyboard' bus='ps2'/>
+    <graphics type='vnc' port='5911' autoport='no' listen='::' passwd='v6dns'> // VNC监听
+    <listen type='address' address='::'/>
+    </graphics>
+    <video>
+    <model type='vga' vram='16384' heads='1'/>
+   <address type='pci' domain='0x0000' bus='0x00' slot='0x02' function='0x0'/>
+   </video>
+    <memballoon model='virtio'>
+    <address type='pci' domain='0x0000' bus='0x00' slot='0x06' function='0x0'/>
+    </memballoon>
 
-```
-\    <emulator>/usr/bin/kvm-spice</emulator>
-```
-
-```
-\    <disk type='file' device='disk'>   //虚拟机虚拟磁盘
-```
-
-```
-\    <driver name='qemu' type='qcow2'/>
-```
-
-```
-\    <source file='/opt/cfiec/6dnskvm/DELL_STORAGE  .qcow2'/>
-```
-
-```
-\    <target dev='vda' bus='virtio'/>
-```
-
-```
-\    <address type='pci' domain='0x0000' bus='0x00' slot='0x04' function='0x0'/>
-```
-
-```
-\    </disk>
-```
-
-```
-\    <controller type='usb' index='0' model='ich9-ehci1'>
-```
-
-```
-\    <address type='pci' domain='0x0000' bus='0x00' slot='0x05' function='0x7'/>
-```
-
-```
-\    </controller>
-```
-
-```
-\    <controller type='usb' index='0' model='ich9-uhci1'>
-```
-
-```
-\    <master startport='0'/>
-```
-
-```
-\    <address type='pci' domain='0x0000' bus='0x00' slot='0x05' function='0x0' multifunction='on'/>
-```
-
-```
-\    </controller>
-```
-
-```
-\    <controller type='usb' index='0' model='ich9-uhci2'>
-```
-
-```
-\    <master startport='2'/>
-```
-
-```
-\    <address type='pci' domain='0x0000' bus='0x00' slot='0x05' function='0x1'/>
-```
-
-```
-\    </controller>
-```
-
-```
-\    <controller type='usb' index='0' model='ich9-uhci3'>
-```
-
-```
-\    <master startport='4'/>
-```
-
-```
-\    <address type='pci' domain='0x0000' bus='0x00' slot='0x05' function='0x2'/>
-```
-
-```
-\    </controller>
-```
-
-```
-\    <controller type='pci' index='0' model='pci-root'/>
-```
-
-```
-\    <controller type='fdc' index='0'/>
-```
-
-```
-\    <controller type='ide' index='0'>
-```
-
-```
-\    <address type='pci' domain='0x0000' bus='0x00' slot='0x01' function='0x1'/>
-```
-
-```
-\    </controller>
-```
-
-```
-\    <interface type='bridge'>   // 网卡类型，桥接
-```
-
-```
-\    <mac address='52:54:00:90:34:70'/>
-```
-
-```
-\    <source bridge='br0'/> //桥接网桥名称
-```
-
-```
-\    <model type='virtio'/>    // 网卡驱动类型
-```
-
-```
-\    <address type='pci' domain='0x0000' bus='0x00' slot='0x03' function='0x0'/>
-```
-
-```
-\    </interface>
-```
-
-```
-\    <serial type='pty'>
-```
-
-```
-\    <target port='0'/>
-```
-
-```
-\    </serial>
-```
-
-```
-\    <console type='pty'>
-```
-
-```
-\    <target type='serial' port='0'/>
-```
-
-```
-\    </console>
-```
-
-```
-\    <input type='tablet' bus='usb'/>
-```
-
-```
-\    <input type='mouse' bus='ps2'/>
-```
-
-```
-\    <input type='keyboard' bus='ps2'/>
-```
-
-```
-\    <graphics type='vnc' port='5911' autoport='no' listen='::' passwd='v6dns'> // VNC监听
-```
-
-```
-\    <listen type='address' address='::'/>
-```
-
-```
-\    </graphics>
-```
-
-```
-\    <video>
-```
-
-```
-\    <model type='vga' vram='16384' heads='1'/>
-```
-
-```
-\    <address type='pci' domain='0x0000' bus='0x00' slot='0x02' function='0x0'/>
-```
-
-```
-\    </video>
-```
-
-```
-\    <memballoon model='virtio'>
-```
-
-```
-\    <address type='pci' domain='0x0000' bus='0x00' slot='0x06' function='0x0'/>
-```
-
-```
-\    </memballoon>
-```
-
-```
   </devices>
-```
 
-```
 </domain>
 ```
 
@@ -781,59 +404,38 @@ root@ubuntu:~# virsh attach-disk WASU_AF /opt/cfiec/6dnskvm/data/WASU_AF_DATA.qc
 
 ```
 root@ubuntu:~# virsh edit WASU_AF
-```
+
 
 在disk字段后添加如下内容
 
 \#找到硬盘配置(原来的系统硬盘)
 
-```
 <disk type='file' device='disk'>
-```
 
-```
 <driver name='qemu' type='raw'/>
-```
 
-```
 <source file='/disk/sdb1/c1.img'/>
-```
 
-```
 <target dev='vda' bus='virtio'/>
-```
 
-```
 <address type='pci' domain='0x0000' bus='0x00' slot='0x04' function='0x0'/>
-```
 
-```
 </disk>
-```
+
 
 \#增加文件硬盘,vdb
 
-```
+
 <disk type='file' device='disk'>
-```
 
-```
 <driver name='qemu' type='raw' cache='none'/>
-```
 
-```
 <source file='/disk/sdb6/c1d6.img'/>
-```
 
-```
 <target dev='vdb' bus='virtio'/>
-```
 
-```
 <address type='pci' domain='0x0000' bus='0x00' slot='0x06' function='0x0'/>
-```
 
-```
 </disk>
 ```
 
